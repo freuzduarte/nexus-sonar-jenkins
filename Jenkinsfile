@@ -86,7 +86,7 @@ pipeline {
                     nexusUrl: 'localhost:8081',
                     groupId: pom.groupId,
                     version: pom.version,
-                    repository: 'MavenHosted',
+                    repository: 'MavenGroup',
                     credentialsId: 'adminNexus',
                     artifacts: [
                         [artifactId: pom.artifactId,
