@@ -1,6 +1,6 @@
 package com.journaldev.spring.controller;
 
-private class EmpRestURIConstants {
+public class EmpRestURIConstants {
 
 	public static final String DUMMY_EMP = "/rest/emp/dummy";
 	public static final String GET_EMP = "/rest/emp/{id}";
