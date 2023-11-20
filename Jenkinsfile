@@ -1,4 +1,4 @@
-/* groovylint-disable CompileStatic, NestedBlockDepth, NoDef, VariableTypeRequired */
+/* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
     agent any
     environment {
@@ -109,6 +109,13 @@ pipeline {
                     } else {
                         error("*** File: ${artifactPath}, could not be found")
                     }
+                }
+            }
+        }
+        stage('Jmeter') {
+            steps {
+                script {
+                    println 'Probando Jmeter'
                 }
             }
         }
