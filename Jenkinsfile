@@ -120,7 +120,7 @@ pipeline {
                 junit(
             allowEmptyResults: true,
             testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml')
-                slackSend(color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                slackSend(credentialsId: 'slackSecret', channel: '#prueba-de-devops', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
             }
         }
     }
