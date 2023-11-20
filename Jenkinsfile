@@ -39,38 +39,38 @@ pipeline {
             steps {
                 echo 'Entrando a Sonarqube'
                 echo 'Probando una nueva linea'
-            //     script {
-            //         def scannerHome = tool 'SonarQubeScanner'
-            //         withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
-            //             withSonarQubeEnv(installationName: 'SonarQubeServer') {
-            //                 sh """
-            //             ${scannerHome}/bin/sonar-scanner \\
-            //             -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
-            //             -Dsonar.projectKey=sonartoken \\
-            //             -Dsonar.projectVersion=1.3 \\
-            //             -Dsonar.sources=src/main/java/ \\
-            //             -Dsonar.language=java \\
-            //             -Dsonar.java.binaries=./target/classes \\
-            //             -Dsonar.host.url=http://172.28.112.1:9000 \\
-            //             -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
-            //         """
-            //             }
-            //         }
-            //     }
+                script {
+                    def scannerHome = tool 'SonarQubeScanner'
+                    withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
+                        withSonarQubeEnv(installationName: 'SonarQubeServer') {
+                            sh """
+                        ${scannerHome}/bin/sonar-scanner \\
+                        -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
+                        -Dsonar.projectKey=sonartoken \\
+                        -Dsonar.projectVersion=1.3 \\
+                        -Dsonar.sources=src/main/java/ \\
+                        -Dsonar.language=java \\
+                        -Dsonar.java.binaries=./target/classes \\
+                        -Dsonar.host.url=http://172.28.112.1:9000 \\
+                        -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
+                    """
+                        }
+                    }
+                }
             }
         }
-        // stage('Quality Gate') {
-        //     steps {
-        //         script {
-        //             timeout(time: 1, unit: 'HOURS') {
-        //                 def qg = waitForQualityGate(abortPipeline: true, webhookSecretId: 'qualitygatewebhook')
-        //                 if (qg.status != 'OK') {
-        //                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Quality Gate') {
+            steps {
+                script {
+                    timeout(time: 1, unit: 'HOURS') {
+                        def qg = waitForQualityGate(abortPipeline: true, webhookSecretId: 'qualitygatewebhook')
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                    }
+                }
+            }
+        }
         stage('SonarType Nexus') {
             steps {
                 script {
