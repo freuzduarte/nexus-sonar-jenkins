@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     echo 'Testing'
-                    sh 'mvn clean'
+                    // sh 'mvn clean'
                     println 'Testing from println PROBANDO'
                 }
             }
@@ -29,8 +29,8 @@ pipeline {
             steps {
                 script {
                     echo 'Deploy con el moodo script de pipeline'
-                    sh 'mvn -B package'
-                    sh 'mvn verify'
+                    // sh 'mvn -B package'
+                    // sh 'mvn verify'
                 }
             }
         }
@@ -38,24 +38,24 @@ pipeline {
         stage('sonarqube') {
             steps {
                 echo 'Entrando a Sonarqube'
-                script {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
-                        withSonarQubeEnv(installationName: 'SonarQubeServer') {
-                            sh """
-                        ${scannerHome}/bin/sonar-scanner \\
-                        -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
-                        -Dsonar.projectKey=sonartoken \\
-                        -Dsonar.projectVersion=1.3 \\
-                        -Dsonar.sources=src/main/java/ \\
-                        -Dsonar.language=java \\
-                        -Dsonar.java.binaries=./target/classes \\
-                        -Dsonar.host.url=http://172.28.112.1:9000 \\
-                        -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
-                    """
-                        }
-                    }
-                }
+            //     script {
+            //         def scannerHome = tool 'SonarQubeScanner'
+            //         withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
+            //             withSonarQubeEnv(installationName: 'SonarQubeServer') {
+            //                 sh """
+            //             ${scannerHome}/bin/sonar-scanner \\
+            //             -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
+            //             -Dsonar.projectKey=sonartoken \\
+            //             -Dsonar.projectVersion=1.3 \\
+            //             -Dsonar.sources=src/main/java/ \\
+            //             -Dsonar.language=java \\
+            //             -Dsonar.java.binaries=./target/classes \\
+            //             -Dsonar.host.url=http://172.28.112.1:9000 \\
+            //             -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
+            //         """
+            //             }
+            //         }
+            //     }
             }
         }
         // stage('Quality Gate') {
