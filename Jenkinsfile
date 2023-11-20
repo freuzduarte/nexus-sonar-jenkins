@@ -38,6 +38,7 @@ pipeline {
         stage('sonarqube') {
             steps {
                 echo 'Entrando a Sonarqube'
+                echo 'Probando una nueva linea'
             //     script {
             //         def scannerHome = tool 'SonarQubeScanner'
             //         withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
