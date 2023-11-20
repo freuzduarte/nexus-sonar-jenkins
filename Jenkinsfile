@@ -30,7 +30,7 @@ pipeline {
                 script {
                     echo 'Deploy con el moodo script de pipeline'
                     sh 'mvn -B package'
-                    // sh 'mvn verify'
+                // sh 'mvn verify'
                 }
             }
         }
@@ -73,30 +73,40 @@ pipeline {
         stage('SonarType Nexus') {
             steps {
                 script {
+                    if (!fileExists('pom.xml')) {
+                        error('El archivo pom.xml no existe')
+                    }
                     pom = readMavenPom file: 'pom.xml'
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}")
+                    if (filesByGlob.length == 0) {
+                        error("No se encontraron archivos que coincidan con el patrón target/*.${pom.packaging}")
+                    }
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
                     artifactPath = filesByGlob[0].path
                     artifactExists = fileExists artifactPath
                     if (artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}"
-                        nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '172.28.112.1:8081',
-                    groupId: pom.groupId,
-                    version: pom.version,
-                    repository: 'MavenGroup',
-                    credentialsId: 'adminNexus',
-                    artifacts: [
-                        [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging]
-                    ]
-                )
-            } else {
-                        error "*** File: ${artifactPath}, could not be found"
+                        try {
+                            nexusArtifactUploader(
+                                nexusVersion: 'nexus3',
+                                protocol: 'http',
+                                nexusUrl: '172.28.112.1:8081/',
+                                groupId: pom.groupId,
+                                version: pom.version,
+                                repository: 'MavenGroup',
+                                credentialsId: 'adminNexus',
+                                artifacts: [
+                                    [artifactId: pom.artifactId,
+                                            classifier: '',
+                                            file: artifactPath,
+                                            type: pom.packaging]
+                                ]
+                            )
+                        } catch (Exception e) {
+                            error("No se pudo conectar a Nexus: ${e.message}")
+                        }
+                    } else {
+                        error("*** File: ${artifactPath}, could not be found")
                     }
                 }
             }
