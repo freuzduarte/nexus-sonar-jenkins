@@ -115,9 +115,12 @@ pipeline {
     }
     post {
         always {
-            junit(
+            script {
+                echo 'Always Post'
+                junit(
             allowEmptyResults: true,
             testResults: 'target/surefire-reports/*.xml', 'target/failsafe-reports/*.xml')
+            }
         }
     }
 }
