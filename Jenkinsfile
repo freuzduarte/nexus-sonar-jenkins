@@ -119,7 +119,7 @@ pipeline {
                 echo 'Always Post'
                 junit(
             allowEmptyResults: true,
-            testResults: 'target/failsafe-reports/*.xml')
+            testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml')
             }
         }
     }
