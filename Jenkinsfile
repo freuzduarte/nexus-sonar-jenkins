@@ -90,7 +90,7 @@ pipeline {
                             nexusArtifactUploader(
                                 nexusVersion: 'nexus3',
                                 protocol: 'http',
-                                nexusUrl: '172.28.112.1:8081/',
+                                nexusUrl: '172.28.112.1:8081',
                                 groupId: pom.groupId,
                                 version: pom.version,
                                 repository: 'MavenHosted',
