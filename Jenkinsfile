@@ -130,13 +130,12 @@ pipeline {
                                 classifier: '',
                                 file: artifactPath,
                                 type: pom.packaging]
-                    ]
-                )
-            } else {
+                        ]
+                    )
+                    } else {
                         error "*** File: ${artifactPath}, could not be found"
                     }
                 }
-            }
             }
         }
     }
