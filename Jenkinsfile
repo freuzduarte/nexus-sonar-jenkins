@@ -77,6 +77,11 @@ pipeline {
                         error('El archivo pom.xml no existe')
                     }
                     pom = readMavenPom file: 'pom.xml'
+
+                    def version = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
+                    def newVersion = version.replace('-SNAPSHOT', '') + '.' + env.BUILD_NUMBER + '-SNAPSHOT'
+                    sh "mvn versions:set -DnewVersion=${newVersion}"
+
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}")
                     if (filesByGlob.length == 0) {
                         error("No se encontraron archivos que coincidan con el patrón target/*.${pom.packaging}")
