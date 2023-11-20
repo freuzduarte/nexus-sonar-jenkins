@@ -7,9 +7,11 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo 'Build'
-                sh 'python3 --version'
-                sh 'python3 python.py'
+                script {
+                    echo 'Build'
+                    sh 'python3 --version'
+                    sh 'python3 python.py'
+                }
             }
         }
 
