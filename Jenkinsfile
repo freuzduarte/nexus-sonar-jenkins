@@ -2,7 +2,7 @@
 pipeline {
     agent any
     environment {
-        env.HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
+        HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
     }
     stages {
         stage('build') {
