@@ -87,7 +87,7 @@ pipeline {
                     groupId: pom.groupId,
                     version: pom.version,
                     repository: 'MavenHosted',
-                    credentialsId: 'adminNexuss',
+                    credentialsId: 'adminNexus',
                     artifacts: [
                         [artifactId: pom.artifactId,
                                 classifier: '',
