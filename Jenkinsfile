@@ -1,6 +1,9 @@
 /* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
     agent any
+    tool {
+        maven 'MavenVersion'
+    }
     environment {
         HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
     }
@@ -14,7 +17,6 @@ pipeline {
                 }
             }
         }
-
         stage('test') {
             steps {
                 script {
@@ -24,53 +26,51 @@ pipeline {
                 }
             }
         }
-
         stage('deploy') {
             steps {
                 script {
                     echo 'Deploy con el moodo script de pipeline'
                     sh 'mvn -B package'
-                // sh 'mvn verify'
+                    sh 'pwd'
                 }
             }
         }
-
-        stage('sonarqube') {
-            steps {
-                echo 'Entrando a Sonarqube'
-                echo 'Probando una nueva linea'
-                script {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
-                        withSonarQubeEnv(installationName: 'SonarQubeServer') {
-                            sh """
-                        ${scannerHome}/bin/sonar-scanner \\
-                        -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
-                        -Dsonar.projectKey=sonartoken \\
-                        -Dsonar.projectVersion=1.3 \\
-                        -Dsonar.sources=src/main/java/ \\
-                        -Dsonar.language=java \\
-                        -Dsonar.java.binaries=./target/classes \\
-                        -Dsonar.host.url=http://172.28.112.1:9000 \\
-                        -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
-                    """
-                        }
-                    }
-                }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
-                script {
-                    timeout(time: 1, unit: 'HOURS') {
-                        def qg = waitForQualityGate(abortPipeline: true, webhookSecretId: 'qualitygatewebhook')
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                        }
-                    }
-                }
-            }
-        }
+        // stage('sonarqube') {
+        //     steps {
+        //         echo 'Entrando a Sonarqube'
+        //         echo 'Probando una nueva linea'
+        //         script {
+        //             def scannerHome = tool 'SonarQubeScanner'
+        //             withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
+        //                 withSonarQubeEnv(installationName: 'SonarQubeServer') {
+        //                     sh """
+        //                 ${scannerHome}/bin/sonar-scanner \\
+        //                 -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
+        //                 -Dsonar.projectKey=sonartoken \\
+        //                 -Dsonar.projectVersion=1.3 \\
+        //                 -Dsonar.sources=src/main/java/ \\
+        //                 -Dsonar.language=java \\
+        //                 -Dsonar.java.binaries=./target/classes \\
+        //                 -Dsonar.host.url=http://172.28.112.1:9000 \\
+        //                 -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
+        //             """
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Quality Gate') {
+        //     steps {
+        //         script {
+        //             timeout(time: 1, unit: 'HOURS') {
+        //                 def qg = waitForQualityGate(abortPipeline: true, webhookSecretId: 'qualitygatewebhook')
+        //                 if (qg.status != 'OK') {
+        //                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         // stage('SonarType Nexus') {
         //     steps {
         //         script {
@@ -112,6 +112,14 @@ pipeline {
         //         }
         //     }
         // }
+        stage ('SoapUi Test Runner'){
+            steps {
+                script {
+                    println 'Probando SoapUi'
+
+                }
+            }
+        }
         stage('Jmeter') {
             steps {
                 script {
@@ -120,15 +128,15 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            script {
-                echo 'Always Post'
-                junit(
-            allowEmptyResults: true,
-            testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml')
-                slackSend(color: 'good', channel: '#pruebas-de-devops', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-            }
-        }
-    }
+    // post {
+    //     always {
+    //         script {
+    //             echo 'Always Post'
+    //             junit(
+    //         allowEmptyResults: true,
+    //         testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml')
+    //             slackSend(color: 'good', channel: '#pruebas-de-devops', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    //         }
+    //     }
+    // }
 }
