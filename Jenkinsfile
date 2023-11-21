@@ -116,6 +116,7 @@ pipeline {
             steps {
                 script {
                     println 'Probando SoapUi'
+                    sh 'docker ps'
                 }
             }
         }

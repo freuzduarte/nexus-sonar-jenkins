@@ -8,4 +8,4 @@ COPY /var/jenkins_home/soapUi/test/REST-Project-2-soapui-project.xml /REST-Proje
 WORKDIR /app
 
 # Ejecuta el comando testrunner.bat al iniciar el contenedor
-ENTRYPOINT ["testrunner.sh", "-sTestSuite", "-cTestCase", "-r", "-a", "-j", "-J", "-f/app/reports", "/proyecto.xml"]
+ENTRYPOINT ["testrunner.sh", "-sTestSuite", "-cTestCase", "-r", "-a", "-j", "-J", "-f/app/reports", "/REST-Project-2-soapui-project.xml"]
