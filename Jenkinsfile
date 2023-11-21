@@ -1,5 +1,6 @@
 /* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
+    agent any
     tools {
         maven 'MavenVersion'
     }
