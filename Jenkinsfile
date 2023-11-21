@@ -4,6 +4,7 @@ pipeline {
     agent any
     tools {
         maven 'MavenVersion'
+        docker 'dockerInstall'
     }
     environment {
         HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
@@ -31,7 +32,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploy con el moodo script de pipeline'
-                    // sh 'mvn -B package'
+                // sh 'mvn -B package'
                 }
             }
         }
@@ -112,11 +113,16 @@ pipeline {
         //         }
         //     }
         // }
-        stage('SoapUi Test Runner'){
+        stage('SoapUi Test Runner') {
             steps {
                 script {
                     println 'Probando SoapUi'
-                    sh 'docker ps'
+                    docker.WithTools('dockerInstall') {
+                        def customImage = docker.build("soapRunner:${env.BUILD_ID_SHORT}", '-f Dockerfile .')
+                        customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
+                            sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
+                        }
+                    }
                 }
             }
         }
@@ -128,15 +134,15 @@ pipeline {
             }
         }
     }
-    // post {
-    //     always {
-    //         script {
-    //             echo 'Always Post'
-    //             junit(
-    //         allowEmptyResults: true,
-    //         testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml')
-    //             slackSend(color: 'good', channel: '#pruebas-de-devops', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-    //         }
-    //     }
-    // }
+// post {
+//     always {
+//         script {
+//             echo 'Always Post'
+//             junit(
+//         allowEmptyResults: true,
+//         testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml')
+//             slackSend(color: 'good', channel: '#pruebas-de-devops', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+//         }
+//     }
+// }
 }
