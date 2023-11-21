@@ -1,7 +1,7 @@
 /* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
     agent any
-    tool {
+    tools {
         maven 'MavenVersion'
     }
     environment {
@@ -112,11 +112,10 @@ pipeline {
         //         }
         //     }
         // }
-        stage ('SoapUi Test Runner'){
+        stage('SoapUi Test Runner'){
             steps {
                 script {
                     println 'Probando SoapUi'
-
                 }
             }
         }
