@@ -4,7 +4,6 @@ pipeline {
     agent any
     tools {
         maven 'MavenVersion'
-        docker 'dockerInstall'
     }
     environment {
         HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
