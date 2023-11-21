@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     echo 'Testing'
-                    sh 'mvn clean'
+                    // sh 'mvn clean'
                     println 'Testing from println PROBANDO'
                 }
             }
@@ -30,8 +30,8 @@ pipeline {
             steps {
                 script {
                     echo 'Deploy con el moodo script de pipeline'
-                    sh 'mvn -B package'
-                    sh 'pwd'
+                    // sh 'mvn -B package'
+                    sh 'python3 /var/jenkins_home/python/hello.py'
                 }
             }
         }
