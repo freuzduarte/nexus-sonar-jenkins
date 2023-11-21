@@ -1,9 +1,5 @@
 /* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
-    docker {
-        image 'jenkins/jenkins:lts'
-        args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
     tools {
         maven 'MavenVersion'
     }
