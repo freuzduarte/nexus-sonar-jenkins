@@ -1,5 +1,6 @@
 /* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
+    // /var/jenkins_home/soapUi
     agent any
     tools {
         maven 'MavenVersion'
@@ -31,7 +32,6 @@ pipeline {
                 script {
                     echo 'Deploy con el moodo script de pipeline'
                     // sh 'mvn -B package'
-                    sh 'python3 /var/jenkins_home/python/hello.py'
                 }
             }
         }
