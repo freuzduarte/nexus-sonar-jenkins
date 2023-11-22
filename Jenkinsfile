@@ -121,11 +121,15 @@ pipeline {
                     if (!fileExists('Dockerfile')) {
                         error('El archivo Dockerfile no existe')
                     }
-                    def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '-f Dockerfile .')
-                    customImage.inside('-v /var/jenkins_home/soapUi/test:/tests -v /var/jenkins_home/soapUi/report:/reports') {
-                        sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
-                    }
+                     // Define las rutas de los archivos, tests y reportes
+                    def soapUiTestDir = '/var/jenkins_home/soapUi/test'
+                    def soapUiReportDir = '/var/jenkins_home/soapUi/report'
+                    def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
 
+                    def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '-f Dockerfile .')
+                    customImage.inside("-v ${soapUiTestDir}:/tests -v ${soapUiReportDir}:/reports") {
+                        sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+                    }
                 }
             }
         }
