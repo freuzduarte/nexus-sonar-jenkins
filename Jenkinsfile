@@ -122,8 +122,8 @@ pipeline {
                         error('El archivo Dockerfile no existe')
                     }
                      // Define las rutas de los archivos, tests y reportes
-                    def soapUiTestDir = '/var/jenkins_home/soapUi/test'
-                    def soapUiReportDir = '/var/jenkins_home/soapUi/report'
+                    def soapUiTestDir = 'testSoapRunner'
+                    def soapUiReportDir = 'testSoapRunner/reports'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
 
                     def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '-f Dockerfile .')
