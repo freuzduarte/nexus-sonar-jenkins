@@ -124,8 +124,8 @@ pipeline {
           // Define las rutas de los archivos, tests y reportes
           // def imageRunner = 'smartbear/soapuios-testrunner'
           // def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+          // def soapUiReportDir = 'testSoapRunner/report'
           def soapUiTestDir = 'testSoapRunner'
-          def soapUiReportDir = 'testSoapRunner/report'
 
           sh "ls ${soapUiTestDir}"
           // sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
