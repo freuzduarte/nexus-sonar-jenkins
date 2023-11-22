@@ -117,9 +117,6 @@ pipeline {
                 script {
                     println 'Probando SoapUi'
                     // sh 'mvn clean'
-                    sh 'ls -R'
-                    echo "Contenido de ${soapUiTestDir}:"
-                    sh "ls -R ${soapUiTestDir}"
                     if (!fileExists('Dockerfile')) {
                         error('El archivo Dockerfile no existe')
                     }
@@ -127,6 +124,10 @@ pipeline {
                     def soapUiTestDir = './testSoapRunner'
                     def soapUiReportDir = './testSoapRunner/reports'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+
+                    sh 'ls -R'
+                    echo "Contenido de ${soapUiTestDir}:"
+                    sh "ls -R ${soapUiTestDir}"
 
                     def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '-f Dockerfile .')
                     customImage.inside("-v ${soapUiTestDir}:/tests -v ${soapUiReportDir}:/reports") {
