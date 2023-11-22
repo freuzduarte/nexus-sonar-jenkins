@@ -117,7 +117,7 @@ pipeline {
                 script {
                     println 'Probando SoapUi'
                     // sh 'mvn clean'
-                    sh 'ls -R /ruta/del/contexto/de/construccion'
+                    sh 'ls -R'
                     echo "Contenido de ${soapUiTestDir}:"
                     sh "ls -R ${soapUiTestDir}"
                     if (!fileExists('Dockerfile')) {
