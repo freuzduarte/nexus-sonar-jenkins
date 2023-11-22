@@ -123,7 +123,7 @@ pipeline {
                     def customImage = docker.build("soaprunner:${env.BUILD_TAG}")
                     sh 'docker images'
                     sh "docker inspect -f . soaprunner:${env.BUILD_TAG}"
-                    customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
+                    customImage.inside('-v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/tests -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports') {
                         sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
                     }
                 }
