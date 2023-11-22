@@ -125,9 +125,9 @@ pipeline {
                     // def soapUiReportDir = './testSoapRunner/reports'
                     // def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
 
-                    sh 'ls -R'
-                    echo "Contenido de ${soapUiTestDir}:"
-                    sh "ls -R ${soapUiTestDir}"
+                    // sh 'ls -R'
+                    // echo "Contenido de ${soapUiTestDir}:"
+                    // sh "ls -R ${soapUiTestDir}"
 
                     def customImage = docker.build("soaprunner:${env.BUILD_TAG}")
                     customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
