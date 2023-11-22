@@ -120,10 +120,6 @@ pipeline {
           if (!fileExists('Dockerfile')) {
             error('El archivo Dockerfile no existe')
           }
-          cloudshareDockerMachine(name: 'testrunner') {
-            sh 'docker build -t soaprunner:${env.BUILD_TAG} .'
-          }
-
           sh 'docker ps -a'
           Define las rutas de los archivos, tests y reportes
           def soapUiTestDir = 'testSoapRunner'
