@@ -112,22 +112,17 @@ pipeline {
         //     }
         // }
         stage('SoapUi Test Runner') {
-            agent{
-                docker {
-                    image 'maven:3.8.1-jdk-8'
-                }
-            }
             steps {
                 script {
                     println 'Probando SoapUi'
                     sh 'mvn clean'
-                    // if (!fileExists('Dockerfile')) {
-                    //     error('El archivo Dockerfile no existe')
-                    // }
-                    // def customImage = docker.build("soapRunner:${env.BUILD_ID}", '-f Dockerfile .')
-                    // customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
-                    //     sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
-                    // }
+                    if (!fileExists('Dockerfile')) {
+                        error('El archivo Dockerfile no existe')
+                    }
+                    def customImage = docker.build("soapRunner:${env.BUILD_ID}", '-f Dockerfile .')
+                    customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
+                        sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
+                    }
                 }
             }
         }
