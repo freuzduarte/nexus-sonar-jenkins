@@ -120,7 +120,7 @@ pipeline {
                     if (!fileExists('Dockerfile')) {
                         error('El archivo Dockerfile no existe')
                     }
-                    def customImage = docker.build("soapRunner:${env.BUILD_TAG}", '-f Dockerfile .')
+                    def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '-f Dockerfile .')
                     customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
                         sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
                     }
