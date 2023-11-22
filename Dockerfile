@@ -14,4 +14,4 @@ WORKDIR /app
 # ENTRYPOINT ["testrunner.sh", "-sTestSuite", "-cTestCase", "-r", "-a", "-j", "-J", "-f/app/reports", "/app/REST-Project-2-soapui-project.xml"]
 
 ENTRYPOINT [ "" ]
-CMD [ "/bin/bash" ]
+CMD ["/bin/bash"]

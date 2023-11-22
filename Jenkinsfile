@@ -14,7 +14,7 @@ pipeline {
                 script {
                     echo 'Build'
                     sh 'python3 --version'
-                    sh 'python3 python.py'
+                    sh 'python3 python/python.py'
                 }
             }
         }
