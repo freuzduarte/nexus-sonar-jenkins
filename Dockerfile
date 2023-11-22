@@ -2,7 +2,7 @@
 FROM smartbear/soapuios-testrunner:latest
 
 # Copia tus archivos necesarios al contenedor
-COPY ./testSoapRunner/ /app
+COPY ./testSoapRunner /app
 
 # Establece el directorio de trabajo
 WORKDIR /app
