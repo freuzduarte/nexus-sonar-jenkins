@@ -121,8 +121,8 @@ pipeline {
                         error('El archivo Dockerfile no existe')
                     }
                      // Define las rutas de los archivos, tests y reportes
-                    def soapUiTestDir = '/testSoapRunner'
-                    def soapUiReportDir = '/testSoapRunner/reports'
+                    def soapUiTestDir = './testSoapRunner'
+                    def soapUiReportDir = './testSoapRunner/reports'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
 
                     sh 'ls -R'
