@@ -10,30 +10,30 @@ pipeline {
     }
     stages {
         stage('build') {
-            steps {
-                script {
-                    echo 'Build'
-                    sh 'python3 --version'
-                    sh 'python3 python/python.py'
-                }
-            }
+      steps {
+        script {
+          echo 'Build'
+          sh 'python3 --version'
+          sh 'python3 python/python.py'
+        }
+      }
         }
         stage('test') {
-            steps {
-                script {
-                    echo 'Testing'
-                    // sh 'mvn clean'
-                    println 'Testing from println PROBANDO'
-                }
-            }
+      steps {
+        script {
+          echo 'Testing'
+          // sh 'mvn clean'
+          println 'Testing from println PROBANDO'
+        }
+      }
         }
         stage('deploy') {
-            steps {
-                script {
-                    echo 'Deploy con el moodo script de pipeline'
-                // sh 'mvn -B package'
-                }
-            }
+      steps {
+        script {
+          echo 'Deploy con el moodo script de pipeline'
+        // sh 'mvn -B package'
+        }
+      }
         }
         // stage('sonarqube') {
         //     steps {
@@ -113,23 +113,25 @@ pipeline {
         //     }
         // }
         stage('SoapUi Test Runner') {
-            steps {
-                script {
-                    println 'Probando SoapUi'
-                    // sh 'mvn clean'
-                    if (!fileExists('Dockerfile')) {
-                        error('El archivo Dockerfile no existe')
-                    }
-                    // Define las rutas de los archivos, tests y reportes
-                    def soapUiTestDir = 'testSoapRunner'
-                    def soapUiReportDir = 'testSoapRunner/reports'
-                    def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+      steps {
+        script {
+          println 'Probando SoapUi'
+          // sh 'mvn clean'
+          if (!fileExists('Dockerfile')) {
+            error('El archivo Dockerfile no existe')
+          }
 
-                    sh """
-                    ls -R ${WORKSPACE}/${soapUiTestDir}
-                    docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports \
-                    smartbear/soapuios-testrunner testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}
-                    """
+          sh 'docker ps -a'
+          // Define las rutas de los archivos, tests y reportes
+          // def soapUiTestDir = 'testSoapRunner'
+          // def soapUiReportDir = 'testSoapRunner/reports'
+          // def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+
+          // sh """
+          //   ls -R ${WORKSPACE}/${soapUiTestDir}
+          //   docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports \
+          //   smartbear/soapuios-testrunner testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}
+          //   """
 
                     // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
 
@@ -138,19 +140,19 @@ pipeline {
                     //     error 'Error al ejecutar el testrunner.sh'
                     // }
 
-                    // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
-                    // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
-                        // sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
-                    // }
-                }
-            }
+        // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
+        // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
+        // sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+        // }
+        }
+      }
         }
         stage('Jmeter') {
-            steps {
-                script {
-                    println 'Probando Jmeter'
-                }
-            }
+      steps {
+        script {
+          println 'Probando Jmeter'
+        }
+      }
         }
     }
 // post {
