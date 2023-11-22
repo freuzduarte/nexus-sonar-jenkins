@@ -129,7 +129,7 @@ pipeline {
                     // echo "Contenido de ${soapUiTestDir}:"
                     // sh "ls -R ${soapUiTestDir}"
 
-                    def customImage = docker.build("soaprunner:${env.BUILD_TAG}")
+                    def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
                     customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
 
                         // sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
