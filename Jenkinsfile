@@ -127,7 +127,7 @@ pipeline {
           // def soapUiTestDir = './testSoapRunner'
           // def soapUiReportDir = './testSoapRunner/reports'
 
-          sh "ls ${soapUiTestDir}"
+          // sh "ls ${soapUiTestDir}"
           // sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
 
           sh """
