@@ -127,7 +127,7 @@ pipeline {
 
                     sh """
                     docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports \
-                    smartbear/soapuios-testrunner testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}
+                    smartbear/soapuios-testrunner testrunner.sh -sTestSuite -cTestCase -f/tests/${soapUiProjectFile}
                     """
 
                     // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
