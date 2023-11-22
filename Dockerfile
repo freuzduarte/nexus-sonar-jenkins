@@ -1,6 +1,8 @@
 # Utiliza una imagen base con SoapUI instalado
 FROM smartbear/soapuios-testrunner:latest
 
+RUN chmod 644 /var/jenkins_home/soapUi/test/
+
 # Copia tu archivo de proyecto SoapUI al contenedor
 COPY /var/jenkins_home/soapUi/test/REST-Project-2-soapui-project.xml /app/REST-Project-2-soapui-project.xml
 
