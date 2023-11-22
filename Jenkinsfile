@@ -121,7 +121,7 @@ pipeline {
             error('El archivo Dockerfile no existe')
           }
           sh 'docker ps -a'
-          Define las rutas de los archivos, tests y reportes
+          // Define las rutas de los archivos, tests y reportes
           def soapUiTestDir = 'testSoapRunner'
           def soapUiReportDir = 'testSoapRunner/reports'
           def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
