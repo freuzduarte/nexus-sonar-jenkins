@@ -128,7 +128,6 @@ pipeline {
           // def imageRunner = 'smartbear/soapuios-testrunner'
 
           sh """
-            ls -R ${env.WORKSPACE}/${soapUiTestDir}
             docker run -v ${soapUiTestDir}:/project -v ${soapUiReportDir}:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
             """
 
