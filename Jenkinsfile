@@ -130,11 +130,13 @@ pipeline {
               // sh "ls ${soapUiTestDir}"
               // sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
 
-              sh """
-                docker run -v /var/jenkins_home/workspace/nexus-sonar-jenkins/testSoapRunner:/project -v /var/jenkins_home/workspace/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
-              """
+              // sh """
+              //   docker run -v /var/jenkins_home/workspace/nexus-sonar-jenkins/testSoapRunner:/project -v /var/jenkins_home/workspace/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
+              // """
 
-              // docker run -it -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
+              sh """
+                docker run -it -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
+              """
 
               // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
 
