@@ -122,15 +122,14 @@ pipeline {
           }
           sh 'docker ps -a'
           // Define las rutas de los archivos, tests y reportes
-          def soapUiTestDir = 'testSoapRunner'
-          def soapUiReportDir = 'testSoapRunner/reports'
-          def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
-          def imageRunner = 'smartbear/soapuios-testrunner'
+          def soapUiTestDir = '/var/jenkins_home/soapUi/project'
+          def soapUiReportDir = '/var/jenkins_home/soapUi/report'
+          // def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+          // def imageRunner = 'smartbear/soapuios-testrunner'
 
           sh """
             ls -R ${env.WORKSPACE}/${soapUiTestDir}
-            docker run -v ${env.WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports \
-            ${imageRunner} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}
+            docker run -v ${env.WORKSPACE}/${soapUiTestDir}:/project -v ${WORKSPACE}/${soapUiReportDir}:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
             """
 
         // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
