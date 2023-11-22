@@ -124,8 +124,14 @@ pipeline {
                     def soapUiTestDir = './testSoapRunner'
                     def soapUiReportDir = './testSoapRunner/reports'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+
                     sh 'docker build -t soaprunner:${env.BUILD_TAG} .'
-                    sh "docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports soaprunner:${env.BUILD_TAG} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+
+                    def result = sh "docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports soaprunner:${env.BUILD_TAG} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+                    if (result != 0){
+                        error 'Error al ejecutar el testrunner.sh'
+                    }
+
                     // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
                     // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
                         // sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
