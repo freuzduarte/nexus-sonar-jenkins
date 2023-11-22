@@ -127,7 +127,7 @@ pipeline {
           def soapUiTestDir = '/var/jenkins_home/soapUi'
           def soapUiReportDir = '/var/jenkins_home/soapUi'
           sh "ls ${soapUiTestDir}"
-          sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
+          sh "head -n 10 ${soapUiTestDir}/project/REST-Project-2-soapui-project.xml"
 
           sh """
             docker run -v ${soapUiTestDir}/project:/project -v ${soapUiReportDir}/report:/reports -e COMMAND_LINE="-f/reports /project/project/REST-Project-2-soapui-project.xml" smartbear/soapuios-testrunner
