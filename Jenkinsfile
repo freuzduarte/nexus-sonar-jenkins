@@ -113,9 +113,7 @@ pipeline {
         // }
         stage('SoapUi Test Runner') {
             agent {
-                docker {
-                    label 'docker'
-                }
+                label 'docker'
             }
             steps {
                 script {
