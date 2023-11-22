@@ -121,13 +121,14 @@ pipeline {
                         error('El archivo Dockerfile no existe')
                     }
                     // Define las rutas de los archivos, tests y reportes
-                    def soapUiTestDir = './testSoapRunner'
-                    def soapUiReportDir = './testSoapRunner/reports'
+                    def soapUiTestDir = 'testSoapRunner'
+                    def soapUiReportDir = 'testSoapRunner/reports'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
 
                     sh """
+                    ls -R ${WORKSPACE}/${soapUiTestDir}
                     docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports \
-                    smartbear/soapuios-testrunner testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports ${soapUiProjectFile}
+                    smartbear/soapuios-testrunner testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}
                     """
 
                     // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
