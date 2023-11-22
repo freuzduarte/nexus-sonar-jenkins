@@ -3,6 +3,7 @@ pipeline {
     agent any
     tools {
         maven 'MavenVersion'
+        docker 'dockerInstall'
     }
     environment {
         HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
@@ -119,11 +120,9 @@ pipeline {
                     if (!fileExists('Dockerfile')) {
                         error('El archivo Dockerfile no existe')
                     }
-                    docker.withServer('unix:///var/run/docker.sock') {
-                        def customImage = docker.build("soapRunner:${env.BUILD_TAG}", '-f Dockerfile .')
-                        customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
-                            sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
-                        }
+                    def customImage = docker.build("soapRunner:${env.BUILD_TAG}", '-f Dockerfile .')
+                    customImage.inside('-v /home/dev/courses/devops/files/jenkins/soapUi/test:/tests -v /home/dev/courses/devops/files/jenkins/soapUi/report:/reports') {
+                        sh 'testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/REST-Project-2-soapui-project.xml'
                     }
                 }
             }
