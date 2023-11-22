@@ -2,7 +2,7 @@
 FROM smartbear/soapuios-testrunner:latest
 
 # Copia tu archivo de proyecto SoapUI al contenedor
-COPY ./soapUi/test/REST-Project-2-soapui-project.xml /app/REST-Project-2-soapui-project.xml
+COPY testSoapRunner/REST-Project-2-soapui-project.xml /app/REST-Project-2-soapui-project.xml
 
 # Establece el directorio de trabajo
 WORKDIR /app
