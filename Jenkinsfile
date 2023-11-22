@@ -130,7 +130,7 @@ pipeline {
           sh """
             ls -R ${env.WORKSPACE}/${soapUiTestDir}
             docker run -v ${env.WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports \
-            ${imageRunner} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}
+            ${imageRunner} testrunner.sh -s TestSuite -c TestCase -r -a -j -J -f /reports /tests/${soapUiProjectFile}
             """
 
         // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
