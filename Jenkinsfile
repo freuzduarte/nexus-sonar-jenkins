@@ -130,7 +130,7 @@ pipeline {
           sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
 
           sh """
-            docker run -v ${soapUiTestDir}:/project -v ${soapUiReportDir}:/reports -w /project smartbear/soapuios-testrunner -f/reports ${soapUiProjectFile}
+            docker run -v ${soapUiTestDir}:/project -v ${soapUiReportDir}:/reports -w /project smartbear/soapuios-testrunner testrunner -f/reports ${soapUiProjectFile}
           """
 
           // docker run -it -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
