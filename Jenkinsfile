@@ -10,30 +10,30 @@ pipeline {
     }
     stages {
         stage('build') {
-      steps {
-        script {
-          echo 'Build'
-          sh 'python3 --version'
-          sh 'python3 python/python.py'
-        }
-      }
+            steps {
+                script {
+                    echo 'Build'
+                    sh 'python3 --version'
+                    sh 'python3 python/python.py'
+                }
+            }
         }
         stage('test') {
-      steps {
-        script {
-          echo 'Testing'
-          // sh 'mvn clean'
-          println 'Testing from println PROBANDO'
-        }
-      }
+            steps {
+                script {
+                    echo 'Testing'
+                    // sh 'mvn clean'
+                    println 'Testing from println PROBANDO'
+                }
+            }
         }
         stage('deploy') {
-      steps {
-        script {
-          echo 'Deploy con el moodo script de pipeline'
-        // sh 'mvn -B package'
-        }
-      }
+            steps {
+                script {
+                    echo 'Deploy con el moodo script de pipeline'
+                // sh 'mvn -B package'
+                }
+            }
         }
         // stage('sonarqube') {
         //     steps {
@@ -113,55 +113,53 @@ pipeline {
         //     }
         // }
         stage('SoapUi Test Runner') {
-          steps {
-            script {
-              println 'Probando SoapUi'
-              // sh 'mvn clean'
-              if (!fileExists('Dockerfile')) {
-            error('El archivo Dockerfile no existe')
-              }
-              sh 'docker ps -a'
-              // Define las rutas de los archivos, tests y reportes
-              // def imageRunner = 'smartbear/soapuios-testrunner'
-              // def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
-              // def soapUiTestDir = './testSoapRunner'
-              // def soapUiReportDir = './testSoapRunner/reports'
+            steps {
+                script {
+                    println 'Probando SoapUi'
+                    // sh 'mvn clean'
+                    if (!fileExists('Dockerfile')) {
+                        error('El archivo Dockerfile no existe')
+                    }
+                    // Define las rutas de los archivos, tests y reportes
 
+                    def imageRunner = 'smartbear/soapuios-testrunner'
+                    def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+                    def soapUiProjectDir = '/var/jenkins_home/soapUi/project'
+                    def soapUiReportDir = '/var/jenkins_home/soapUi/report'
 
-              // sh "ls ${soapUiTestDir}"
-              // sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
+                    // sh "ls ${soapUiProjectDir}"
+                    // sh "head -n 10 ${soapUiProjectDir}/REST-Project-2-soapui-project.xml"
 
-              // sh """
-              //   docker run -v /var/jenkins_home/workspace/nexus-sonar-jenkins/testSoapRunner:/project -v /var/jenkins_home/workspace/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
-              // """
+                    sh """
+                    docker run -v ${soapUiProjectDir}:/project -v ${soapUiReportDir}:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/${soapUiProjectFile}'" ${imageRunner}
+                     """
 
-              // sh """
-              //   docker run -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
-              // """
-              sh "pwd"
-              sh "head -n 10 /var/jenkins_home/soapUi/project/REST-Project-2-soapui-project.xml"
-              sh "touch /var/jenkins_home/soapUi/creando.txt"
-              // home\dev\courses\devops\files\jenkins\soapUi
-              // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
+                    // sh """
+                    //   docker run -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
+                    // """
 
-              // def result = sh "docker run -v ${WORKSPACE}/${soapUiTestDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports soaprunner:${env.BUILD_TAG} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
-              // if (result != 0) {
-              //     error 'Error al ejecutar el testrunner.sh'
-              // }
+                    sh 'pwd'
+                    sh 'head -n 10 /var/jenkins_home/soapUi/project/REST-Project-2-soapui-project.xml'
 
-            // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
-            // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
-            // sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
-            // }
+                    // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
+                    // def result = sh "docker run -v ${WORKSPACE}/${soapUiProjectDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports soaprunner:${env.BUILD_TAG} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+                    // if (result != 0) {
+                    //     error 'Error al ejecutar el testrunner.sh'
+                    // }
+
+                    // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
+                    // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
+                    //     sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+                    // }
+                }
             }
-          }
         }
         stage('Jmeter') {
-      steps {
-        script {
-          println 'Probando Jmeter'
-        }
-      }
+            steps {
+                script {
+                    println 'Probando Jmeter'
+                }
+            }
         }
     }
 // post {

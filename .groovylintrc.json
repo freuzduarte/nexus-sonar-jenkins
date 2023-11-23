@@ -2,7 +2,7 @@
     "extends": "recommended",
     "rules": {
         "LineLength": {
-            "enabled": true
+            "enabled": false
         }
     }
 }
