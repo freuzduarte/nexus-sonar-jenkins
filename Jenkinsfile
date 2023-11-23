@@ -127,6 +127,7 @@ pipeline {
               // def soapUiTestDir = './testSoapRunner'
               // def soapUiReportDir = './testSoapRunner/reports'
 
+
               // sh "ls ${soapUiTestDir}"
               // sh "head -n 10 ${soapUiTestDir}/REST-Project-2-soapui-project.xml"
 
@@ -138,6 +139,7 @@ pipeline {
               //   docker run -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
               // """
               sh "pwd"
+              sh "head -n 10 /var/jenkkins_home/soapUi/project/REST-Project-2-soapui-project.xml"
               // home\dev\courses\devops\files\jenkins\soapUi
               // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
 
