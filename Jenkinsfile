@@ -124,8 +124,11 @@ pipeline {
 
                     def imageRunner = 'smartbear/soapuios-testrunner'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
-                    def soapUiProjectDir = '/var/jenkins_home/soapUi/project'
-                    def soapUiReportDir = '/var/jenkins_home/soapUi/report'
+                    // def soapUiProjectDir = '/var/jenkins_home/soapUi/project'
+                    // def soapUiReportDir = '/var/jenkins_home/soapUi/report'
+
+                    def soapUiProjectDir = '/home/dev/courses/devops/files/jenkins/soapUi/project'
+                    def soapUiReportDir = '/home/dev/courses/devops/files/jenkins/soapUi/report'
 
                     // sh "ls ${soapUiProjectDir}"
                     // sh "head -n 10 ${soapUiProjectDir}/REST-Project-2-soapui-project.xml"
