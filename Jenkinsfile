@@ -124,31 +124,21 @@ pipeline {
 
                     def imageRunner = 'smartbear/soapuios-testrunner'
                     def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
-                    // def soapUiProjectDir = '/var/jenkins_home/soapUi/project'
-                    // def soapUiReportDir = '/var/jenkins_home/soapUi/report'
-
                     def soapUiProjectDir = '/home/dev/courses/devops/files/jenkins/soapUi/project'
                     def soapUiReportDir = '/home/dev/courses/devops/files/jenkins/soapUi/report'
 
-                    // sh "ls ${soapUiProjectDir}"
-                    // sh "head -n 10 ${soapUiProjectDir}/REST-Project-2-soapui-project.xml"
-
-                    sh """
+                    def resultSoapUi = sh """
                     docker run -v ${soapUiProjectDir}:/project -v ${soapUiReportDir}:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/${soapUiProjectFile}'" ${imageRunner}
                      """
-
+                    if (resultSoapUi != 0) {
+                        error 'Error al ejecutar el testrunner.sh'
+                    }
                     // sh """
                     //   docker run -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
                     // """
 
-                    sh 'pwd'
-                    sh 'head -n 10 /var/jenkins_home/soapUi/project/REST-Project-2-soapui-project.xml'
-
                     // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
                     // def result = sh "docker run -v ${WORKSPACE}/${soapUiProjectDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports soaprunner:${env.BUILD_TAG} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
-                    // if (result != 0) {
-                    //     error 'Error al ejecutar el testrunner.sh'
-                    // }
 
                     // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
                     // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
