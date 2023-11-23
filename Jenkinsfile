@@ -140,6 +140,7 @@ pipeline {
               // """
               sh "pwd"
               sh "head -n 10 /var/jenkins_home/soapUi/project/REST-Project-2-soapui-project.xml"
+              sh "touch /var/jenkins_home/soapUi/creando.txt"
               // home\dev\courses\devops\files\jenkins\soapUi
               // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
 
