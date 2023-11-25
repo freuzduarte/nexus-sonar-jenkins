@@ -137,10 +137,10 @@ pipeline {
                     // sh "docker build -t soaprunner:${env.BUILD_TAG} ."
                     // def result = sh "docker run -v ${WORKSPACE}/${soapUiProjectDir}:/tests -v ${WORKSPACE}/${soapUiReportDir}:/reports soaprunner:${env.BUILD_TAG} testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
 
-                    // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
-                    // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
-                    //     sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
-                    // }
+                // def customImage = docker.build("soaprunner:${env.BUILD_TAG}", '.')
+                // customImage.inside('-v ${WORKSPACE}/soapUi/test:/tests -v ${WORKSPACE}/soapUi/report:/reports') {
+                //     sh "testrunner.sh -sTestSuite -cTestCase -r -a -j -J -f/reports /tests/${soapUiProjectFile}"
+                // }
                 }
             }
         }
@@ -148,6 +148,13 @@ pipeline {
             steps {
                 script {
                     println 'Probando Jmeter'
+                }
+            }
+        }
+        stage('Terraform') {
+            steps {
+                script {
+                    println 'Probando Terraform'
                 }
             }
         }
