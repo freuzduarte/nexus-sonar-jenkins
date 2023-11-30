@@ -95,7 +95,7 @@ pipeline {
                                 nexusUrl: '192.168.118.128:8081',
                                 groupId: pom.groupId,
                                 version: pom.version,
-                                repository: 'mavenHosted',
+                                repository: 'mavenSnapshotHosted',
                                 credentialsId: 'adminNexus',
                                 artifacts: [
                                     [artifactId: pom.artifactId,
