@@ -35,30 +35,30 @@ pipeline {
                 }
             }
         }
-        // stage('sonarqube') {
-        //     steps {
-        //         echo 'Entrando a Sonarqube'
-        //         echo 'Probando una nueva linea'
-        //         script {
-        //             def scannerHome = tool 'SonarQubeScanner'
-        //             withCredentials([string(credentialsId: 'sonarqube-login-token', variable: 'SONARQUBE_LOGIN_TOKEN')]) {
-        //                 withSonarQubeEnv(installationName: 'SonarQubeServer') {
-        //                     sh """
-        //                 ${scannerHome}/bin/sonar-scanner \\
-        //                 -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
-        //                 -Dsonar.projectKey=sonartoken \\
-        //                 -Dsonar.projectVersion=1.3 \\
-        //                 -Dsonar.sources=src/main/java/ \\
-        //                 -Dsonar.language=java \\
-        //                 -Dsonar.java.binaries=./target/classes \\
-        //                 -Dsonar.host.url=http://172.28.112.1:9000 \\
-        //                 -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
-        //             """
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('sonarqube') {
+            steps {
+                echo 'Entrando a Sonarqube'
+                echo 'Probando una nueva linea'
+                script {
+                    def scannerHome = tool 'sonarserver'
+                    withCredentials([string(credentialsId: 'sonartoken', variable: 'SONARTOKEN')]) {
+                        withSonarQubeEnv(installationName: 'sonarscanner') {
+                            sh """
+                        ${scannerHome}/bin/sonar-scanner \\
+                        -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
+                        -Dsonar.projectKey=sonartoken \\
+                        -Dsonar.projectVersion=1.3 \\
+                        -Dsonar.sources=src/main/java/ \\
+                        -Dsonar.language=java \\
+                        -Dsonar.java.binaries=./target/classes \\
+                        -Dsonar.host.url=http://172.28.112.1:9000 \\
+                        -Dsonar.login=${SONARTOKEN}
+                    """
+                        }
+                    }
+                }
+            }
+        }
         // stage('Quality Gate') {
         //     steps {
         //         script {
