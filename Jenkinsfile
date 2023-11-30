@@ -40,9 +40,9 @@ pipeline {
                 echo 'Entrando a Sonarqube'
                 echo 'Probando una nueva linea'
                 script {
-                    def scannerHome = tool 'sonarserver'
+                    def scannerHome = tool 'sonarscanner'
                     withCredentials([string(credentialsId: 'sonartoken', variable: 'SONARTOKEN')]) {
-                        withSonarQubeEnv(installationName: 'sonarscanner') {
+                        withSonarQubeEnv(installationName: 'sonarserver') {
                             sh """
                         ${scannerHome}/bin/sonar-scanner \\
                         -Dsonar.projectName=jenkins-sonar-fromjenkinsfile \\
