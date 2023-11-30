@@ -1,10 +1,10 @@
 /* groovylint-disable CatchException, CompileStatic, DuplicateStringLiteral, NestedBlockDepth, NoDef, VariableTypeRequired */
 pipeline {
     agent any
-    tools {
-        maven 'MavenVersion'
-        dockerTool 'dockerInstall'
-    }
+    // tools {
+    //     maven 'MavenVersion'
+    //     dockerTool 'dockerInstall'
+    // }
     environment {
         HOLA_VARIABLE = 'hola ESTO ES UNA VARIABLE'
     }
@@ -13,8 +13,8 @@ pipeline {
             steps {
                 script {
                     echo 'Build'
-                    // sh 'python3 --version'
-                    // sh 'python3 python/python.py'
+                // sh 'python3 --version'
+                // sh 'python3 python/python.py'
                 }
             }
         }
