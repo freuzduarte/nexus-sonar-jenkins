@@ -52,6 +52,7 @@ pipeline {
                         -Dsonar.sources=src/main/java/ \\
                         -Dsonar.language=java \\
                         -Dsonar.java.binaries=./target/classes \\
+                        -Dsonar.host.url=http://192.168.118.128:9000 \\
                         -Dsonar.login=${SONARTOKEN}
                     """
                         }
