@@ -51,7 +51,6 @@ pipeline {
                         -Dsonar.sources=src/main/java/ \\
                         -Dsonar.language=java \\
                         -Dsonar.java.binaries=./target/classes \\
-
                         -Dsonar.login=${SONARTOKEN}
                     """
                         }
