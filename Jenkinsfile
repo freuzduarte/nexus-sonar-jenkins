@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     timeout(time: 1, unit: 'HOURS') {
-                        def qg = waitForQualityGate(abortPipeline: true, webhookSecretId: 'qualitygatewebhook')
+                        def qg = waitForQualityGate(abortPipeline: true, webhookSecretId: 'qualitygatewebhoosk')
                         if (qg.status != 'OK') {
                             error "Pipeline aborted due to quality gate failure: ${qg.status}"
                         }
