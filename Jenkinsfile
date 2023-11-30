@@ -13,8 +13,8 @@ pipeline {
             steps {
                 script {
                     echo 'Build'
-                    sh 'python3 --version'
-                    sh 'python3 python/python.py'
+                    // sh 'python3 --version'
+                    // sh 'python3 python/python.py'
                 }
             }
         }
@@ -122,14 +122,14 @@ pipeline {
                     }
                     // Define las rutas de los archivos, tests y reportes
 
-                    def imageRunner = 'smartbear/soapuios-testrunner'
-                    def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
-                    def soapUiProjectDir = '/home/dev/courses/devops/files/jenkins/soapUi/project'
-                    def soapUiReportDir = '/home/dev/courses/devops/files/jenkins/soapUi/report'
+                    // def imageRunner = 'smartbear/soapuios-testrunner'
+                    // def soapUiProjectFile = 'REST-Project-2-soapui-project.xml'
+                    // def soapUiProjectDir = '/home/dev/courses/devops/files/jenkins/soapUi/project'
+                    // def soapUiReportDir = '/home/dev/courses/devops/files/jenkins/soapUi/report'
 
-                    sh """
-                    docker run -v ${soapUiProjectDir}:/project -v ${soapUiReportDir}:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/${soapUiProjectFile}'" ${imageRunner}
-                     """
+                    // sh """
+                    // docker run -v ${soapUiProjectDir}:/project -v ${soapUiReportDir}:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/${soapUiProjectFile}'" ${imageRunner}
+                    //  """
                     // sh """
                     //   docker run -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner:/project -v /home/dev/courses/devops/projects/mod-3/nexus-sonar-jenkins/testSoapRunner/reports:/reports -e COMMAND_LINE="-r -a -j -J -f/%reports% '/%project%/REST-Project-2-soapui-project.xml'" smartbear/soapuios-testrunner
                     // """
