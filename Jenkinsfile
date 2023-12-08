@@ -33,6 +33,7 @@ pipeline {
                     echo 'Deploy con el moodo script de pipeline'
                 // sh 'mvn -B package'
                     echo 'haciendo un cambio'
+                    echo 'Agregando un cambio'
                 }
             }
         }
